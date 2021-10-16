@@ -1,5 +1,4 @@
 import React, {useEffect, useState} from 'react';
-
 import './App.css';
 import {Todo} from './types/types'
 import axios from 'axios';
@@ -15,9 +14,9 @@ function App() {
   const [incompleted, setInCompleted] = useState<Todo[]>([]);
   
   useEffect(() => {
-     fetchTodo();
-     fetchInCompletedTodo();
-     fetchCompletedTodo();
+    fetchTodo();
+    fetchInCompletedTodo();
+    fetchCompletedTodo();
   }, [flag])
 
   async function fetchTodo() {

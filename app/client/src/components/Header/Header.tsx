@@ -53,10 +53,6 @@ export default function Header({mainList, completedList, inCompletedList}: Heade
     setValue(newValue);
   };
 
-  const handleChangeIndex = (index: number) => {
-    setValue(index);
-  };
-
   return (
     <Box sx={{ bgcolor: 'background.paper', width: 560 }}>
       <AppBar position="static" sx={{ bgcolor: 'black'}}>

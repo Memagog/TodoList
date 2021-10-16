@@ -1,6 +1,6 @@
 import { Checkbox, ListItem, ListItemAvatar, ListItemButton, ListItemText } from '@mui/material';
 import './ListItem.css';
-import React, { FC } from 'react';
+import { FC } from 'react';
 import { Todo } from '../../../types/types';
 import DeleteIcon from '@mui/icons-material/Delete';
 import axios from 'axios';
@@ -30,30 +30,30 @@ export const ListItemComponent: FC<ListItemProps> = ({todo, setFlag}) => {
   }
 
   return (       
-        <ListItem       
-            key = {todo.id}     
-            secondaryAction={
-              <Checkbox
-                edge="end"
-                onClick = {() => updateStatusTodo(todo.id)}
-                checked={todo.status?true: false}               
-              />
-            }
-            disablePadding
-          >
-            <ListItemButton>
-              <ListItemAvatar>
-                <DeleteIcon onClick = {() => deleteStatusTodo(todo.id)} className = "delete-icon" />
-              </ListItemAvatar>
-              {
-                todo.status?
-                <s>
-                  <ListItemText sx = {{color: 'white'}} primary={`${todo.title}.`} />
-                </s>
-                :
+    <ListItem       
+      key = {todo.id}     
+      secondaryAction={
+        <Checkbox
+          edge="end"
+          onClick = {() => updateStatusTodo(todo.id)}
+          checked={todo.status?true: false}               
+        />
+      }
+      disablePadding
+    >
+      <ListItemButton>
+        <ListItemAvatar>
+          <DeleteIcon onClick = {() => deleteStatusTodo(todo.id)} className = "delete-icon" />
+        </ListItemAvatar>
+          {
+            todo.status?
+              <s>
+                <ListItemText sx = {{color: 'white'}} primary={`${todo.title}.`} />
+              </s>
+              :
                 <ListItemText sx = {{color: 'white'}} primary={`${todo.title}.`} />                
-              }
-            </ListItemButton>
-          </ListItem>
+          }
+      </ListItemButton>
+    </ListItem>
   )
 }

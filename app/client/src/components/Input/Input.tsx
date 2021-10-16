@@ -1,4 +1,4 @@
-import React, { ChangeEvent, FC, useState } from 'react';
+import React, { FC, useState } from 'react';
 import Paper from '@mui/material/Paper';
 import InputBase from '@mui/material/InputBase';
 import IconButton from '@mui/material/IconButton';
@@ -25,8 +25,7 @@ const ListItemComponent: FC<InputProps> = ({setFlag}) => {
     <Paper
       component="form"
       sx={{ p: '2px 4px', display: 'flex', alignItems: 'center', width: 550 }}
-    >
-      
+    >      
       <InputBase
         sx={{ ml: 1, flex: 1 }}
         placeholder="Add New Todo!"  
