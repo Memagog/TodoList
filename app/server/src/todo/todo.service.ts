@@ -14,17 +14,18 @@ export class TodoService {
     }
 
     async getAllTodo(): Promise<Todo[]> {
-        return await this.todoRepository.find();
+        const todo = await this.todoRepository.find();
+        return todo.sort((a, b) => a.id - b.id)
     }
 
     async getAllCompleted(): Promise<Todo[]> {
         const completedTodo = await this.todoRepository.find({ where: { status: true }});
-        return completedTodo;
+        return completedTodo.sort((a, b) => a.id - b.id);
     }
 
     async getAllInCompleted(): Promise<Todo[]> {
         const completedTodo = await this.todoRepository.find({ where: { status: false }});
-        return completedTodo;
+        return completedTodo.sort((a, b) => a.id - b.id);
     }
 
     async updateStatusTodo ( id: string ): Promise<Todo[]> {

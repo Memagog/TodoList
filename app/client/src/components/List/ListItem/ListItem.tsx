@@ -1,22 +1,41 @@
 import { Checkbox, ListItem, ListItemAvatar, ListItemButton, ListItemText } from '@mui/material';
-import React, { FC, ReactElement } from 'react'
-import { Todo } from '../../../types/types'
+import './ListItem.css';
+import React, { FC } from 'react';
+import { Todo } from '../../../types/types';
 import DeleteIcon from '@mui/icons-material/Delete';
+import axios from 'axios';
 interface ListItemProps {
     todo: Todo;
+    setFlag: () => (void);
 }
 
-export const ListItemComponent: FC<ListItemProps> = ({todo}) => {
+export const ListItemComponent: FC<ListItemProps> = ({todo, setFlag}) => {
     
-   
-    return (
-       
+  async function updateStatusTodo(id: number){
+    try {
+      await axios.put(`http://localhost:4000/todo/update/${id}`);
+      setFlag();
+    } catch (error) {
+      console.log(error)
+    }
+  }
+  
+  async function deleteStatusTodo(id: number){
+    try {
+      await axios.delete(`http://localhost:4000/todo/del/${id}`);
+      setFlag();
+    } catch (error) {
+      console.log(error)
+    }
+  }
+
+  return (       
         <ListItem       
             key = {todo.id}     
             secondaryAction={
               <Checkbox
                 edge="end"
-                // onChange={handleToggle(value)}
+                onClick = {() => updateStatusTodo(todo.id)}
                 checked={todo.status?true: false}               
               />
             }
@@ -24,10 +43,17 @@ export const ListItemComponent: FC<ListItemProps> = ({todo}) => {
           >
             <ListItemButton>
               <ListItemAvatar>
-                <DeleteIcon />
+                <DeleteIcon onClick = {() => deleteStatusTodo(todo.id)} className = "delete-icon" />
               </ListItemAvatar>
-              <ListItemText sx = {{color: 'white'}} primary={`${todo.id}. ${todo.title}. ${todo.status}`} />
+              {
+                todo.status?
+                <s>
+                  <ListItemText sx = {{color: 'white'}} primary={`${todo.title}.`} />
+                </s>
+                :
+                <ListItemText sx = {{color: 'white'}} primary={`${todo.title}.`} />                
+              }
             </ListItemButton>
           </ListItem>
-    )
+  )
 }
