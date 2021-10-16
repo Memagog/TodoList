@@ -12,7 +12,7 @@ export default function ListComponent<T>(props: ListProps<T>) {
   
 
   return (
-    <List dense sx={{ width: '100%', maxWidth: 360, bgcolor: 'background.paper' }}>
+    <List dense sx={{ width: '100%', maxWidth: 560, bgcolor: '#424242', border: 'solid black 2px'}}>
         <div>
             {props.items.map(props.renderItem)}
         </div>      

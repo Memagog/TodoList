@@ -26,7 +26,7 @@ export const ListItemComponent: FC<ListItemProps> = ({todo}) => {
               <ListItemAvatar>
                 <DeleteIcon />
               </ListItemAvatar>
-              <ListItemText  primary={`${todo.id}. ${todo.title}. ${todo.status}`} />
+              <ListItemText sx = {{color: 'white'}} primary={`${todo.id}. ${todo.title}. ${todo.status}`} />
             </ListItemButton>
           </ListItem>
     )
