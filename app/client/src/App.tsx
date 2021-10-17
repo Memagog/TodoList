@@ -6,6 +6,7 @@ import List from './components/List/List';
 import { ListItemComponent } from './components/List/ListItem/ListItem';
 import Header from './components/Header/Header';
 import  Input from './components/Input/Input';
+import { getAllCompletedHttp, getAllHttp, getAllInCompletedHttp } from './api/http';
 
 function App() {
   const [flag, setFlag] = useState(true)
@@ -21,7 +22,7 @@ function App() {
 
   async function fetchTodo() {
     try {
-      const response = await axios.get<Todo[]>('http://localhost:4000/todo');
+      const response = await axios.get<Todo[]>(getAllHttp);
       setTodos(response.data)
     } catch (error) {
       console.log(error)
@@ -29,7 +30,7 @@ function App() {
   }
   async function fetchCompletedTodo() {
     try {
-      const response = await axios.get<Todo[]>('http://localhost:4000/todo/completed');
+      const response = await axios.get<Todo[]>(getAllCompletedHttp);
       setCompleted(response.data)
     } catch (error) {
       console.log(error)
@@ -37,7 +38,7 @@ function App() {
   }
   async function fetchInCompletedTodo() {
     try {
-      const response = await axios.get<Todo[]>('http://localhost:4000/todo/incompleted');
+      const response = await axios.get<Todo[]>(getAllInCompletedHttp);
       setInCompleted(response.data)
     } catch (error) {
       console.log(error)
