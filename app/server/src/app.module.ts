@@ -12,7 +12,7 @@ import { TodoModule } from './todo/todo.module';
       envFilePath:'.env',
     }),
     TypeOrmModule.forRoot({
-      type: 'postgres',
+      type: 'postgres',       
       host: process.env.POSTGRES_HOST,
       port: Number(process.env.POSTGRES_PORT),
       username: process.env.POSTGRES_USER,
