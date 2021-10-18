@@ -1,13 +1,11 @@
 import { Body, Controller, Delete, Get, Param, Post, Put, Query, UsePipes } from '@nestjs/common';
 import { TodoService } from './todo.service';
-import { ValidationPipe } from './../pipes/validation.pipes';
 import { CreateTodoDto } from './dto/create-todo.dto';
 
 @Controller('todo')
 export class TodoController {
     constructor(private todoService: TodoService) {}
-
-    @UsePipes(ValidationPipe)
+    
     @Post('add')
     create(@Body() CreateTodoDto: CreateTodoDto) {
         return this.todoService.createTodo(CreateTodoDto);
