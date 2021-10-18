@@ -8,9 +8,9 @@ import { Todo } from './todo.entity';
 export class TodoService {
     constructor(@InjectRepository(Todo) private todoRepository: Repository<Todo>){}
 
-    async createTodo(dto: CreateTodoDto) {
+    async createTodo(dto: CreateTodoDto): Promise<Todo> {
         const todo = await this.todoRepository.save(dto);
-        return await this.todoRepository.find();
+        return todo;
     }
 
     async getAllTodo(completed: string): Promise<Todo[]> {
@@ -36,7 +36,7 @@ export class TodoService {
         return await this.todoRepository.find();     
     }
 
-    async deleteTodo(id: string) {
+    async deleteTodo(id: string): Promise<string> {
         const employee = await this.todoRepository.findOne(id);
         await this.todoRepository.remove(employee);
         return `Delete employee by ${id}`
