@@ -40,12 +40,12 @@ function a11yProps(index: number) {
   };
 }
 
-interface HeaderProps {
+interface TabBarProps {
     mainList: ReactElement;
     completedList: ReactElement;
     inCompletedList: ReactElement;
 }
-export default function ListContainer({mainList, completedList, inCompletedList}: HeaderProps) {
+export default function TabBar({mainList, completedList, inCompletedList}: TabBarProps) {
   const theme = useTheme();
   const [value, setValue] = React.useState(0);
 
@@ -74,7 +74,7 @@ export default function ListContainer({mainList, completedList, inCompletedList}
           {mainList}
         </TabPanel>
         <TabPanel value={value} index={1} dir={theme.direction}>
-           {completedList}
+          {completedList}
         </TabPanel>
         <TabPanel value={value} index={2} dir={theme.direction}>
           {inCompletedList}
