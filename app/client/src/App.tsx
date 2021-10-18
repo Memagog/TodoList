@@ -4,7 +4,7 @@ import {Todo} from './types/types'
 import axios from 'axios';
 import List from './components/List/List';
 import { ListItemComponent } from './components/List/ListItem/ListItem';
-import Header from './components/Header/Header';
+import Container from './components/Container/Container';
 import  Input from './components/Input/Input';
 import { getAllCompletedHttp, getAllHttp, getAllInCompletedHttp } from './api/http';
 
@@ -49,7 +49,7 @@ function App() {
     <div className="App">
      <div className = "container">
       <Input setFlag = {() => setFlag(!flag)}/> 
-      <Header 
+      <Container 
         mainList = {  
           <List items = {todos} renderItem = {(todo) => <ListItemComponent todo = {todo} setFlag = {() => setFlag(!flag)}/>} />
         }

@@ -45,7 +45,7 @@ interface HeaderProps {
     completedList: ReactElement;
     inCompletedList: ReactElement;
 }
-export default function Header({mainList, completedList, inCompletedList}: HeaderProps) {
+export default function ListContainer({mainList, completedList, inCompletedList}: HeaderProps) {
   const theme = useTheme();
   const [value, setValue] = React.useState(0);
 
