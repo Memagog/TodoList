@@ -1,8 +1,8 @@
 
-const env = 'http://localhost:5000/todo'
-export const getAllHttp = `${env}`;
-export const getAllCompletedHttp = `${env}?completed=true`;
-export const getAllInCompletedHttp = `${env}?completed=false`;
-export const updateTodoHttp = `${env}/update`;
-export const deleteTodoHttp = `${env}/del`;
-export const addNewTodoHttp = `${env}/add`;
+const url =  process.env.REACT_APP_BACKEND_API
+export const getAllHttp = `${url}`;
+export const getAllCompletedHttp = `${url}?completed=false`;
+export const getAllInCompletedHttp = `${url}?completed=true`;
+export const updateTodoHttp = `${url}/update`;
+export const deleteTodoHttp = `${url}/del`;
+export const addNewTodoHttp = `${url}/add`;
