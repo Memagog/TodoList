@@ -13,20 +13,19 @@ export class TodoService {
         return await this.todoRepository.find();
     }
 
-    async getAllTodo(): Promise<Todo[]> {
-        const todo = await this.todoRepository.find();
-        return todo.sort((a, b) => a.id - b.id)
-    }
-
-    async getAllCompleted(): Promise<Todo[]> {
-        const completedTodo = await this.todoRepository.find({ where: { status: true }});
-        return completedTodo.sort((a, b) => a.id - b.id);
-    }
-
-    async getAllInCompleted(): Promise<Todo[]> {
-        const completedTodo = await this.todoRepository.find({ where: { status: false }});
-        return completedTodo.sort((a, b) => a.id - b.id);
-    }
+    async getAllTodo(completed: string): Promise<Todo[]> {
+        let todo: Todo[] = [];       
+        if ( completed === 'true' ) {
+            todo = await this.todoRepository.find({ where: { status: true }});
+        }
+        else if ( completed === 'false' ) {
+            todo = await this.todoRepository.find({ where: { status: false }});
+        }
+        else {
+            todo = await this.todoRepository.find({ order: { id: 1 }});            
+        }
+        return todo;   
+    }   
 
     async updateStatusTodo ( id: string ): Promise<Todo[]> {
         const todo = await this.todoRepository.findOne(id).then((e) => {
