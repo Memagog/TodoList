@@ -19,7 +19,7 @@ export class TodoController {
     @ApiOperation({ summary: 'You can get all/completed/incompleted Todo!'})
     @ApiResponse({ status: 200, type: [Todo] })
     @Get()   
-    findAll(@Query('completed') completed: string) {
+    findAll(@Query('completed') completed: boolean) {
         return this.todoService.getAllTodo(completed);
     }
 

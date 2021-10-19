@@ -12,9 +12,9 @@ export class TodoService {
     createTodo(dto: CreateTodoDto): Promise<Todo> {        
         return this.todoDao.create(dto);;
     }
-
-    getAllTodo(completed: string): Promise<Todo[]> {
-        return this.todoDao.findTodo(completed);  
+    
+    getAllTodo(completed: boolean): Promise<Todo[]> {
+        return this.todoDao.findAllTodo(completed);  
     }   
 
     updateStatusTodo (id: string): string {

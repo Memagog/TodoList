@@ -12,18 +12,13 @@ export class TodoDAO {
         return todo;    
     }
 
-    async findTodo(completed: string) {
-        let todo: Todo[] = [];       
-        if ( completed === 'true' ) {
-            todo = await this.todoRepository.find({ where: { status: true }});
-        }
-        else if ( completed === 'false' ) {
-            todo = await this.todoRepository.find({ where: { status: false }});
-        }
-        else {
-            todo = await this.todoRepository.find({ order: { id: 'ASC' }});            
-        }
-        return todo; 
+    async findAllTodo(completed: boolean): Promise<Todo[]> {        
+        return completed
+        ? await this.todoRepository.find({ 
+            where: { status: completed },
+            order: { id: 'DESC' }
+        })
+        : await this.todoRepository.find({ order: { id: 'DESC' } }); 
     }
 
     async updateTodo(id: string): Promise<void> {
