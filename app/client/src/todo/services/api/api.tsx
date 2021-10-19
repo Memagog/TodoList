@@ -1,10 +1,10 @@
-import axios from 'axios';
 import { Todo } from './../../model/todo-model/todo';
 import { addNewTodoHttp, deleteTodoHttp, getAllCompletedHttp, getAllHttp, getAllInCompletedHttp, updateTodoHttp } from '../../services/http/http';
+import { instance } from './index';
 
 export async function fetchTodo(): Promise<Todo[]> {
   try {
-    const response = await axios.get<Todo[]>(getAllHttp);
+    const response = await instance.get<Todo[]>(getAllHttp);
     return response.data;          
   } catch (error) {
     console.log(error);
@@ -14,7 +14,7 @@ export async function fetchTodo(): Promise<Todo[]> {
 
 export async function fetchCompletedTodo(): Promise<Todo[]> {
   try {
-    const response = await axios.get<Todo[]>(getAllCompletedHttp);
+    const response = await instance.get<Todo[]>(getAllCompletedHttp);
     return response.data;          
   } catch (error) {
     console.log(error);
@@ -24,7 +24,7 @@ export async function fetchCompletedTodo(): Promise<Todo[]> {
 
 export async function fetchInCompletedTodo(): Promise<Todo[]> {
   try {
-    const response = await axios.get<Todo[]>(getAllInCompletedHttp);
+    const response = await instance.get<Todo[]>(getAllInCompletedHttp);
     return response.data;          
   } catch (error) {
     console.log(error);
@@ -34,7 +34,7 @@ export async function fetchInCompletedTodo(): Promise<Todo[]> {
 
 export async function updateStatusTodo(id: number) {
   try {
-    await axios.put(`${updateTodoHttp}/${id}`);      
+    await instance.put(`${updateTodoHttp}/${id}`);      
   } catch (error) {
     console.log(error);
   }
@@ -42,7 +42,7 @@ export async function updateStatusTodo(id: number) {
   
 export async function deleteTodo(id: number) {
   try {
-    await axios.delete(`${deleteTodoHttp}/${id}`);      
+    await instance.delete(`${deleteTodoHttp}/${id}`);      
   } catch (error) {
     console.log(error);
   }
@@ -50,7 +50,7 @@ export async function deleteTodo(id: number) {
 
 export async function createTodo(data: string){
   try {
-    await axios.post( `${addNewTodoHttp}`, {title: data});    
+    await instance.post( `${addNewTodoHttp}`, {title: data});    
   } catch (error) {
     console.log(error)
   }

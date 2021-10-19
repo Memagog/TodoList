@@ -1,8 +1,7 @@
 
-const url =  process.env.REACT_APP_BACKEND_API
-export const getAllHttp = `${url}`;
-export const getAllCompletedHttp = `${url}?completed=false`;
-export const getAllInCompletedHttp = `${url}?completed=true`;
-export const updateTodoHttp = `${url}/update`;
-export const deleteTodoHttp = `${url}/del`;
-export const addNewTodoHttp = `${url}/add`;
+export const getAllHttp = `/todo`;
+export const getAllCompletedHttp = `/todo?completed=false`;
+export const getAllInCompletedHttp = `/todo?completed=true`;
+export const updateTodoHttp = `/todo/update`;
+export const deleteTodoHttp = `/todo/del`;
+export const addNewTodoHttp = `/todo/add`;
