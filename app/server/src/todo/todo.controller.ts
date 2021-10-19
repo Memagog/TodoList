@@ -1,4 +1,4 @@
-import { Body, Controller, Delete, Get, Param, Post, Put, Query, UsePipes } from '@nestjs/common';
+import { Body, Controller, DefaultValuePipe, Delete, Get, Param, ParseBoolPipe, ParseIntPipe, Post, Put, Query, UsePipes } from '@nestjs/common';
 import { TodoService } from './todo.service';
 import { CreateTodoDto } from './dto/create-todo.dto';
 import { ApiOperation, ApiResponse, ApiTags } from '@nestjs/swagger';
@@ -19,21 +19,21 @@ export class TodoController {
     @ApiOperation({ summary: 'You can get all/completed/incompleted Todo!'})
     @ApiResponse({ status: 200, type: [Todo] })
     @Get()   
-    findAll(@Query('completed') completed: boolean) {
+    findAll(@Query('completed', new DefaultValuePipe(false), ParseBoolPipe) completed: boolean) {
         return this.todoService.getAllTodo(completed);
     }
 
     @ApiOperation({ summary: 'You can update status Todo!'})
     @ApiResponse({ status: 200, type: String })    
     @Put('update/:id')
-    updateTodo(@Param('id') id: string, @Query('completed') completed: boolean) {
+    updateTodo(@Param('id', ParseIntPipe) id: string, @Query('completed', ParseBoolPipe) completed: boolean) {
         return this.todoService.updateStatusTodo(id, completed);
     }
 
     @ApiOperation({ summary: 'You can delete Todo!'})
     @ApiResponse({ status: 200, type: `Delete Todo by id 5` })
     @Delete('del/:id')
-    delete(@Param('id') id: string) {
+    delete(@Param('id', ParseIntPipe) id: string) {
         return this.todoService.deleteTodo(id);
     }
     
