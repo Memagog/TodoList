@@ -1,5 +1,5 @@
 import { Checkbox, ListItem, ListItemAvatar, ListItemButton, ListItemText } from '@mui/material';
-import './ListItem.css';
+import './ListItem.scss';
 import { FC } from 'react';
 import { Todo } from '../../model/todo-model/todo';
 import DeleteIcon from '@mui/icons-material/Delete';
