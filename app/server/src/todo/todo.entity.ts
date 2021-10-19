@@ -13,5 +13,5 @@ export class Todo {
 
   @ApiProperty({ example: 'false', description: 'todo status (completed/incompleted)'})
   @Column({ default: false })
-  status: Boolean;
+  status: boolean;
 }

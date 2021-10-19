@@ -26,8 +26,8 @@ export class TodoController {
     @ApiOperation({ summary: 'You can update status Todo!'})
     @ApiResponse({ status: 200, type: String })    
     @Put('update/:id')
-    updateTodo(@Param('id') id: string) {
-        return this.todoService.updateStatusTodo(id);
+    updateTodo(@Param('id') id: string, @Query('completed') completed: boolean) {
+        return this.todoService.updateStatusTodo(id, completed);
     }
 
     @ApiOperation({ summary: 'You can delete Todo!'})

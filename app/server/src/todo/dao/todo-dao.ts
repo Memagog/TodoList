@@ -1,3 +1,4 @@
+import { HttpException, HttpStatus } from "@nestjs/common";
 import { InjectRepository } from "@nestjs/typeorm";
 import { Repository } from "typeorm";
 import { CreateTodoDto } from "../dto/create-todo.dto";
@@ -21,16 +22,19 @@ export class TodoDAO {
         : await this.todoRepository.find({ order: { id: 'DESC' } }); 
     }
 
-    async updateTodo(id: string): Promise<void> {
+    async updateTodo(id: string, completed: boolean): Promise<void> {
         const todo = await this.todoRepository.findOne(id).then(e => {
             e.status = !e.status;
             return e;
-        });
-        await this.todoRepository.save(todo);       
+        })        
+        await this.todoRepository.save(todo); 
+        // await this.todoRepository.update(id, { status: completed } ); Не работает для TRUE значений, не могу понять почему     
     }
     
     async deleteTodo(id: string): Promise<void> {
-        const todo = await this.todoRepository.findOne(id);
-        await this.todoRepository.remove(todo);
+        const removeTodo = await this.todoRepository.delete(id);
+        if (!removeTodo.affected) {
+            throw new HttpException('Post not found', HttpStatus.NOT_FOUND);
+        }
     }
 }

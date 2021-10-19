@@ -1,10 +1,8 @@
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
-import { Repository } from 'typeorm';
 import { TodoDAO } from './dao/todo-dao';
 import { CreateTodoDto } from './dto/create-todo.dto';
 import { Todo } from './todo.entity';
-
 @Injectable()
 export class TodoService {
     constructor(private todoDao: TodoDAO){}
@@ -17,8 +15,8 @@ export class TodoService {
         return this.todoDao.findAllTodo(completed);  
     }   
 
-    updateStatusTodo (id: string): string {
-        this.todoDao.updateTodo(id);  
+    updateStatusTodo(id: string, completed: boolean): string {
+        this.todoDao.updateTodo(id, completed);  
         return `Update todo by id: ${id}`;
     }
 
