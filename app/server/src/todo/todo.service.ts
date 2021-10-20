@@ -18,9 +18,8 @@ export class TodoService {
         return this.todoDao.getAllStatusTodo(completed);  
     }   
 
-    updateStatusTodo(id: string, completed: boolean): string {
-        this.todoDao.updateTodo(id, completed);  
-        return `Update todo by id: ${id}`;
+    updateStatusTodo(id: string, completed: boolean): Promise<Todo> {          
+        return this.todoDao.updateTodo(id, completed);
     }
 
     deleteTodo(id: string): string {

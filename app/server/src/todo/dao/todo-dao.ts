@@ -24,13 +24,9 @@ export class TodoDAO {
         })      
     }
 
-    async updateTodo(id: string, completed: boolean): Promise<void> {
-        const todo = await this.todoRepository.findOne(id).then(e => {
-            e.status = !e.status;
-            return e;
-        })        
-        await this.todoRepository.save(todo); 
-        // await this.todoRepository.update(id, { status: completed } ); Не работает для TRUE значений, не могу понять почему     
+    async updateTodo(id: string, completed: boolean): Promise<Todo> {
+        await this.todoRepository.update(id, { status: completed })
+        return this.todoRepository.findOne(id);
     }
     
     async deleteTodo(id: string): Promise<void> {
