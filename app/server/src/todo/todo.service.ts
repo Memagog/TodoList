@@ -10,9 +10,12 @@ export class TodoService {
     createTodo(dto: CreateTodoDto): Promise<Todo> {        
         return this.todoDao.create(dto);;
     }
+    getAll(): Promise<Todo[]> {
+        return this.todoDao.getAll();
+    }
     
-    getAllTodo(completed: boolean): Promise<Todo[]> {
-        return this.todoDao.findAllTodo(completed);  
+    getAllStatusTodo(completed: boolean): Promise<Todo[]> {
+        return this.todoDao.getAllStatusTodo(completed);  
     }   
 
     updateStatusTodo(id: string, completed: boolean): string {

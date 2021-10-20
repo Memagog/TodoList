@@ -1,4 +1,4 @@
-import { Body, Controller, DefaultValuePipe, Delete, Get, Param, ParseBoolPipe, ParseIntPipe, Post, Put, Query, UsePipes } from '@nestjs/common';
+import { Body, Controller, Delete, Get, Param, ParseBoolPipe, ParseIntPipe, Post, Put, Query, UsePipes, DefaultValuePipe } from '@nestjs/common';
 import { TodoService } from './todo.service';
 import { CreateTodoDto } from './dto/create-todo.dto';
 import { ApiOperation, ApiResponse, ApiTags } from '@nestjs/swagger';
@@ -16,11 +16,18 @@ export class TodoController {
         return this.todoService.createTodo(CreateTodoDto);
     }
 
-    @ApiOperation({ summary: 'You can get all/completed/incompleted Todo!'})
+    @ApiOperation({ summary: 'You can get all Todo!'})
     @ApiResponse({ status: 200, type: [Todo] })
     @Get()   
-    findAll(@Query('completed', new DefaultValuePipe(false), ParseBoolPipe) completed: boolean) {
-        return this.todoService.getAllTodo(completed);
+    findAll() {
+        return this.todoService.getAll();
+    }
+
+    @ApiOperation({ summary: 'You can get completed/incompleted Todo!'})
+    @ApiResponse({ status: 200, type: [Todo] })
+    @Get('status')   
+    findAllByStatus(@Query('completed', ParseBoolPipe) completed: boolean) {
+        return this.todoService.getAllStatusTodo(completed);
     }
 
     @ApiOperation({ summary: 'You can update status Todo!'})

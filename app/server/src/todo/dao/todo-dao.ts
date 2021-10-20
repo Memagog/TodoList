@@ -13,13 +13,15 @@ export class TodoDAO {
         return todo;    
     }
 
-    async findAllTodo(completed: boolean): Promise<Todo[]> {        
-        return completed
-        ? await this.todoRepository.find({ 
+    async getAll(): Promise<Todo[]> {
+        return this.todoRepository.find({ order: { id: 'DESC' }})
+    }
+
+    async getAllStatusTodo(completed: boolean): Promise<Todo[]> {        
+        return await this.todoRepository.find({ 
             where: { status: completed },
             order: { id: 'DESC' }
-        })
-        : await this.todoRepository.find({ order: { id: 'DESC' } }); 
+        })      
     }
 
     async updateTodo(id: string, completed: boolean): Promise<void> {
