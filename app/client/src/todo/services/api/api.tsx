@@ -32,15 +32,15 @@ export async function fetchInCompletedTodo(): Promise<Todo[]> {
   }  
 }
 
-export async function updateStatusTodo(id: string) {
+export async function updateStatusTodo(id: number, status: boolean): Promise<void> {
   try {
-    await instance.put(`${updateTodoHttp}/${id}`);      
+    await instance.put(`${updateTodoHttp}/${id}?completed=${!status}`);      
   } catch (error) {
     console.log(error);
   }
 }
   
-export async function deleteTodo(id: string) {
+export async function deleteTodo(id: number): Promise<void> {
   try {
     await instance.delete(`${deleteTodoHttp}/${id}`);      
   } catch (error) {
@@ -48,10 +48,10 @@ export async function deleteTodo(id: string) {
   }
 }
 
-export async function createTodo(data: string){
+export async function createTodo(data: string): Promise<void>{
   try {
     await instance.post( `${addNewTodoHttp}`, {title: data});    
   } catch (error) {
-    console.log(error)
+    console.log(error);
   }
 }

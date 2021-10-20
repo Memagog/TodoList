@@ -3,18 +3,19 @@ import Paper from '@mui/material/Paper';
 import InputBase from '@mui/material/InputBase';
 import IconButton from '@mui/material/IconButton';
 import AddIcon from '@mui/icons-material/Add';
-import { createTodo } from '../../services/api/api';
-
-
+import { useAppDispatch } from '../../../store/hooks';
+import { addTodoAsync } from '../../redux/todoSlice/todoSlice';
 interface InputProps {
   setFlag: () => (void);
 }
 
 const ListItemComponent: FC<InputProps> = ({setFlag}) => {   
   const [value, setValue] = useState<string>('');
+  const dispatch = useAppDispatch();
 
   function addTodo(data: string){ 
-    createTodo(data).then(() => setFlag());  
+    dispatch(addTodoAsync(data));  
+    setFlag()
   }
  
   return (

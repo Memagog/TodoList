@@ -1,6 +1,5 @@
 import React, {useEffect, useState} from 'react';
 import './Container.scss';
-import {Todo} from '../../model/todo-model/todo';
 import List from '../List/List';
 import { ListItemComponent } from '../ListItem/ListItem';
 import  Input from '../Input/Input';

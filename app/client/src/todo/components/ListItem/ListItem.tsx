@@ -3,7 +3,8 @@ import './ListItem.scss';
 import { FC } from 'react';
 import { Todo } from '../../model/todo-model/todo';
 import DeleteIcon from '@mui/icons-material/Delete';
-import { deleteTodo, updateStatusTodo } from '../../services/api/api';
+import { useAppDispatch } from '../../../store/hooks';
+import { deleteTodoAsync, updateTodoAsync } from '../../redux/todoSlice/todoSlice';
 
 interface ListItemProps {
     todo: Todo;
@@ -11,13 +12,14 @@ interface ListItemProps {
 }
 
 export const ListItemComponent: FC<ListItemProps> = ({todo, setFlag}) => {
+  const dispatch = useAppDispatch();
 
-  function changeStatus(id: number){
-    // updateStatusTodo(id).then(() => setFlag());    
+  function changeStatus(id: number, status: boolean){
+    dispatch(updateTodoAsync({id, status})).then(() => setFlag());    
   }
   
   function removeById(id: number){
-    // deleteTodo(id).then(() => setFlag());  
+    dispatch(deleteTodoAsync(id)).then(() => setFlag()); 
   }
 
   return (       
@@ -26,7 +28,7 @@ export const ListItemComponent: FC<ListItemProps> = ({todo, setFlag}) => {
       secondaryAction={
         <Checkbox
           edge="end"
-          onClick = {() => changeStatus(todo.id) }
+          onClick = {() => changeStatus(todo.id, todo.status) }
           checked = { todo.status? true: false }               
         />
       }

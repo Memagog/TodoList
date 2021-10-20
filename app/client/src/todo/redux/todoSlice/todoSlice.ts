@@ -1,6 +1,6 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 import { RootState } from '../../../store/store';
-import { Todo } from '../../model/todo-model/todo';
+import { Todo, updateTodo } from '../../model/todo-model/todo';
 import { createTodo, deleteTodo, fetchCompletedTodo, fetchInCompletedTodo, fetchTodo, updateStatusTodo } from '../../services/api/api';
 
 
@@ -50,15 +50,15 @@ export const addTodoAsync = createAsyncThunk(
 
 export const updateTodoAsync = createAsyncThunk(
   'todo/updateTodo',
-  async (id: string) => {
-    const response = await updateStatusTodo(id);
+  async (data: updateTodo) => {
+    const response = await updateStatusTodo(data.id, data.status);
     return response;
   }
 );
 
 export const deleteTodoAsync = createAsyncThunk(
   'todo/deleteTodo',
-  async (id: string) => {
+  async (id: number) => {
     const response = await deleteTodo(id);
     return response;
   }
@@ -92,18 +92,15 @@ export const todoSlice = createSlice({
       .addCase(getAllInCompletedTodoAsync.fulfilled, (state, action) => {       
         state.todoIncompleted = action.payload;
       })
-      // .addCase(updateTodoAsync.pending, (state) => {
-      //   state.todo = [];
-      // })
-      // .addCase(updateTodoAsync.fulfilled, (state, action) => {       
-      //   // state.todo = action.payload;
-      // })
-      // .addCase(deleteTodoAsync.pending, (state) => {
-      //   state.todo = [];
-      // })
-      // .addCase(deleteTodoAsync.fulfilled, (state, action) => {       
-      //   // state.todo = action.payload;
-      // })
+    builder
+      .addCase(updateTodoAsync.pending, (state) => {})
+      .addCase(updateTodoAsync.fulfilled, (state, action) => {})
+    builder
+      .addCase(deleteTodoAsync.pending, (state) => {})
+      .addCase(deleteTodoAsync.fulfilled, (state, action) => {})
+    builder
+      .addCase(addTodoAsync.pending, (state) => {})
+      .addCase(addTodoAsync.fulfilled, (state, action) => {})
   },
 });
 
