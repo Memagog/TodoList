@@ -8,7 +8,7 @@ import { TodoModule } from './todo/todo.module';
 @Module({
   imports: [
     ConfigModule.forRoot({
-      envFilePath:'.env',
+      envFilePath:`.${process.env.NODE_ENV}.env`,
     }),
     TypeOrmModule.forRoot(AppConfig.getTypeOrmConfig()),
     TypeOrmModule.forFeature([Todo]),
