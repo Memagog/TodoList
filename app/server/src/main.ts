@@ -13,8 +13,8 @@ async function bootstrap() {
         .addTag('George Korobko')
         .build()
   const document = SwaggerModule.createDocument(app, config);
-  SwaggerModule.setup('/api/docs', app, document)
+  SwaggerModule.setup('/api/docs', app, document);
 
-  await app.listen(process.env.PORT || 4000).then(() => console.log(`app liste to PORT ${process.env.PORT}`));
+  await app.listen(process.env.PORT || 4000).then(() => console.log(`app listen to PORT ${process.env.PORT}`));
 }
 bootstrap();
