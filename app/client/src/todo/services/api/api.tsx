@@ -32,7 +32,7 @@ export async function fetchInCompletedTodo(): Promise<Todo[]> {
   }  
 }
 
-export async function updateStatusTodo(id: number) {
+export async function updateStatusTodo(id: string) {
   try {
     await instance.put(`${updateTodoHttp}/${id}`);      
   } catch (error) {
@@ -40,7 +40,7 @@ export async function updateStatusTodo(id: number) {
   }
 }
   
-export async function deleteTodo(id: number) {
+export async function deleteTodo(id: string) {
   try {
     await instance.delete(`${deleteTodoHttp}/${id}`);      
   } catch (error) {

@@ -1,21 +1,41 @@
-import { createAsyncThunk, createSlice, PayloadAction } from '@reduxjs/toolkit';
-import { RootState, AppThunk } from '../../../store/store';
+import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
+import { RootState } from '../../../store/store';
 import { Todo } from '../../model/todo-model/todo';
-import { createTodo, fetchTodo } from '../../services/api/api';
+import { createTodo, deleteTodo, fetchCompletedTodo, fetchInCompletedTodo, fetchTodo, updateStatusTodo } from '../../services/api/api';
 
 
 export interface TodoState {
-  todo: Todo[]; 
+  todoAll: Todo[];
+  todoCompleted: Todo[];
+  todoIncompleted: Todo[]; 
 }
 
 const initialState: TodoState = {
-  todo: [],
+  todoAll: [],
+  todoCompleted: [],
+  todoIncompleted: []
 };
 
-export const getTodoAsync = createAsyncThunk(
+export const getAllTodoAsync = createAsyncThunk(
   'todo/fetchTodo',
   async () => {
     const response = await fetchTodo();
+    return response;
+  }
+);
+
+export const getAllCompletedTodoAsync = createAsyncThunk(
+  'todo/fetchCompletedTodo',
+  async () => {
+    const response = await fetchCompletedTodo();   
+    return response;
+  }
+);
+
+export const getAllInCompletedTodoAsync = createAsyncThunk(
+  'todo/fetchInCompletedTodo',
+  async () => {
+    const response = await fetchInCompletedTodo();
     return response;
   }
 );
@@ -31,7 +51,7 @@ export const addTodoAsync = createAsyncThunk(
 export const updateTodoAsync = createAsyncThunk(
   'todo/updateTodo',
   async (id: string) => {
-    const response = await createTodo(id);
+    const response = await updateStatusTodo(id);
     return response;
   }
 );
@@ -39,39 +59,53 @@ export const updateTodoAsync = createAsyncThunk(
 export const deleteTodoAsync = createAsyncThunk(
   'todo/deleteTodo',
   async (id: string) => {
-    const response = await createTodo(id);
+    const response = await deleteTodo(id);
     return response;
   }
 );
 
-export const counterSlice = createSlice({
+export const todoSlice = createSlice({
   name: 'todo',
   initialState,
   reducers: {
-    addTodo: (state) => {
-      // state.todo;
-    },
-    getTodo: (state) => {
-      // state.todo;
-    },
-    updateTodo: (state, action: PayloadAction<number>) => {
-      // state.todo;
-    },
-    deleteTodo: (state, action: PayloadAction<number>) => {
-      // state.todo;
-    },
+    
   },
   extraReducers: (builder) => {
     builder
-      .addCase(getTodoAsync.pending, (state) => {
-       
+      .addCase(getAllTodoAsync.pending, (state) => {
+        state.todoAll = [];
       })
-      .addCase(getTodoAsync.fulfilled, (state, action) => {       
-        state.todo = action.payload;
-      });
+      .addCase(getAllTodoAsync.fulfilled, (state, action) => {       
+        state.todoAll = action.payload;
+      })
+    builder
+      .addCase(getAllCompletedTodoAsync.pending, (state) => {
+        state.todoCompleted = [];
+      })
+      .addCase(getAllCompletedTodoAsync.fulfilled, (state, action) => {       
+        state.todoCompleted = action.payload;
+      })
+    builder
+      .addCase(getAllInCompletedTodoAsync.pending, (state) => {
+        state.todoIncompleted = [];
+      })
+      .addCase(getAllInCompletedTodoAsync.fulfilled, (state, action) => {       
+        state.todoIncompleted = action.payload;
+      })
+      // .addCase(updateTodoAsync.pending, (state) => {
+      //   state.todo = [];
+      // })
+      // .addCase(updateTodoAsync.fulfilled, (state, action) => {       
+      //   // state.todo = action.payload;
+      // })
+      // .addCase(deleteTodoAsync.pending, (state) => {
+      //   state.todo = [];
+      // })
+      // .addCase(deleteTodoAsync.fulfilled, (state, action) => {       
+      //   // state.todo = action.payload;
+      // })
   },
 });
 
-// export const { increment, decrement, incrementByAmount } = counterSlice.actions;
-export const selectCount = (state: RootState) => state.todo;
-export default counterSlice.reducer;
+export const todoState = (state: RootState) => state.todo;
+export default todoSlice.reducer;

@@ -13,11 +13,11 @@ interface ListItemProps {
 export const ListItemComponent: FC<ListItemProps> = ({todo, setFlag}) => {
 
   function changeStatus(id: number){
-    updateStatusTodo(id).then(() => setFlag());    
+    // updateStatusTodo(id).then(() => setFlag());    
   }
   
   function removeById(id: number){
-    deleteTodo(id).then(() => setFlag());  
+    // deleteTodo(id).then(() => setFlag());  
   }
 
   return (       
