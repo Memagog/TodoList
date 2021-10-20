@@ -1,5 +1,5 @@
 import { ApiProperty } from "@nestjs/swagger";
-import { IsString, Length } from "class-validator";
+import { IsBoolean, IsString, Length } from "class-validator";
 
 export class CreateTodoDto {  
 
@@ -8,6 +8,7 @@ export class CreateTodoDto {
   @Length(1, 50, { message: `Title length 3 - 50 chars` })
   title: string;
 
+  @IsBoolean({ message: 'ststus must be a string'})
   @ApiProperty({ example: 'false', description: 'status todo', default: 'false' })
   status?: boolean; 
 }
