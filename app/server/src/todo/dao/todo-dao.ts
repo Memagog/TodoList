@@ -30,9 +30,6 @@ export class TodoDAO {
     }
     
     async deleteTodo(id: string): Promise<void> {
-        const removeTodo = await this.todoRepository.delete(id);
-        if (!removeTodo.affected) {
-            throw new HttpException('Post not found', HttpStatus.NOT_FOUND);
-        }
+        const removeTodo = await this.todoRepository.delete(id);   
     }
 }

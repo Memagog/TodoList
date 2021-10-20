@@ -13,7 +13,7 @@ export class ValidationPipe implements PipeTransform<any> {
       let messages = errors.map( err => {
         return `${err.property} - ${Object.values(err.constraints).join(', ')}`
       })
-      throw new BadRequestException('Error validation!');
+      throw new BadRequestException(`Error validation! ${messages}`);
     }
     return value;
   }    
